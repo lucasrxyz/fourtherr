@@ -87,7 +87,7 @@ function connexionArtiste($username, $motdepasse) {
  * @param int $id
  * @return bool
  */
-function deleteUtilisateur($id) {
+function deleteArtiste($id) {
     global $pdo;
     $stmt = $pdo->prepare("DELETE FROM i_artiste WHERE id = ?");
     return $stmt->execute([$id]);

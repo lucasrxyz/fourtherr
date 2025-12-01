@@ -109,6 +109,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Résultat -->
     <?php if ($result !== null): ?>
-        <h3><span style="color:#0000FE"><b>JSON</b></span> reponse body</h3>
+        <h3><span style="color:#0000FE"><b>JSON</b></span> response body</h3>
         <pre><?php echo is_array($result) ? json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) : $result; ?></pre>
     <?php endif;
