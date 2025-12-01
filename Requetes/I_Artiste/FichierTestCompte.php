@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Récupérer tous les artiste -->
     <form method="post">
         <input type="hidden" name="action" value="getAll">
-        <button type="submit">Afficher tous les artiste</button>
+        <button type="submit">Éxécuter</button>
     </form>
 
     <!-- Récupérer un artiste par ID -->
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="hidden" name="action" value="getById">
         <label>ID :</label>
         <input type="number" name="id" required>
-        <button type="submit">Chercher par ID</button>
+        <button type="submit">Éxécuter</button>
     </form>
 
     <!-- Récupérer un artiste par nom -->
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="hidden" name="action" value="getBySearch">
         <label>Rechercher :</label>
         <input type="text" name="search" required>
-        <button type="submit">Chercher</button>
+        <button type="submit">Éxécuter</button>
     </form>
 
     <!-- Ajouter un artiste -->
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Prénom :</label> <input type="text" name="prenom" required><br>
         <label>Username :</label> <input type="text" name="username" required><br>
         <label>Mot de passe :</label> <input type="password" name="motdepasse" required><br>
-        <button type="submit">Ajouter artiste</button>
+        <button type="submit">Éxécuter</button>
     </form>
 
     <!-- Connexion artiste -->
@@ -96,20 +96,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="hidden" name="action" value="connexion">
         <label>Username :</label> <input type="text" name="username" required><br>
         <label>Mot de passe :</label> <input type="password" name="motdepasse" required><br>
-        <button type="submit">Connexion</button>
+        <button type="submit">Se connecter</button>
     </form>
 
     <!-- Supprimer un artiste -->
     <form method="post">
         <input type="hidden" name="action" value="delete">
         <label>ID :</label> <input type="number" name="id" required>
-        <button type="submit">Supprimer artiste</button>
+        <button type="submit">Éxécuter</button>
     </form>
 
     <!-- Résultat -->
     <?php if ($result !== null): ?>
         <h3><span style="color:#0000FE"><b>JSON</b></span> reponse body</h3>
-        <pre><?php echo is_array($result) ? json_encode($result, JSON_PRETTY_PRINT) : $result; ?></pre>
+        <pre><?php echo is_array($result) ? json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) : $result; ?></pre>
     <?php endif; ?>
 </body>
 </html>
