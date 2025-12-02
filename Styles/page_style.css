@@ -1,0 +1,125 @@
+* {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            background: #f8f8ff;
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 55px;
+            width: 100%;
+            background: #ff8800;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            z-index: 1000;
+        }
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 5px; /* espace entre les éléments */
+        }
+        
+        .navbar-btn {
+            display: inline-block;
+            font-size: 14px;
+            background: rgb(255,136,0);
+            color: rgb(255, 255, 245);
+            text-decoration: none;
+            border: 2px solid #fdd2a0ff;
+            padding: 3px 0; /* 3px haut/bas */
+            padding-left: 6px; /* 6px gauche/droite */
+            padding-right: 6px;
+            background-clip: padding-box;
+            transition: all 0.2s;
+        }
+        
+        .navbar-btn:hover {
+            background: #ff8800;
+            color: #fdd2a0ff;
+            border: 2px solid rgb(255,136,0);
+        }
+        
+        .navbar pre {
+            margin: 0;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .sidebar {
+            width: 220px;
+            background: #faf8f5ff;
+            border-right: 1px dotted rgb(255,136,0);
+            height: calc(100vh - 55px);
+            padding: 20px 10px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 55px;
+            left: 0;
+        }
+
+        .sidebar-group-title {
+            font-weight: bold;
+            color: #ff8800;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-group {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-item {
+            margin-bottom: 4px;
+        }
+
+        .sidebar-btn {
+            display: block;
+            font-size: 14px;
+            background: rgb(255,136,0);
+            color: rgb(255, 255, 245);
+            text-decoration: none;
+
+            border: 2px solid #fdd2a0ff; /* bordure orange */
+            padding: 4px 6px; /* espace entre le texte et la bordure */
+            background-clip: padding-box; /* fait en sorte que la bordure n'empiète pas sur le contenu */
+        }
+
+
+        .sidebar-btn:hover {
+            background: #ff8800;
+            color: #fdd2a0ff;
+            border: 2px solid rgb(255,136,0);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: 220px;
+            margin-top: 55px;
+            width: calc(100% - 220px);
+        }
+
+        .page-content {
+            padding: 25px;
+        }
+
+        .card {
+            max-width: 450px;
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #ff8800;
+        }
