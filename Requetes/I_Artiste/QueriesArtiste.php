@@ -1,5 +1,4 @@
 <?php
-// Requetes/I_Compte/QueriesCompte.php
 
 require_once __DIR__ . '/../AppConnection.php';
 
@@ -71,8 +70,9 @@ function connexionArtiste($username, $motdepasse) {
     // Re-hash du mot de passe entré
     $hashedPassword = hash('sha256', $motdepasse);
 
-    $stmt = $pdo->prepare("SELECT id, nom, prenom, username 
-                           FROM i_artiste 
+    $stmt = $pdo->prepare("SELECT a.id, a.nom, a.prenom, a.username, b.solde 
+                           FROM i_artiste a
+                           LEFT JOIN t_solde b ON b.FK_idArtiste = a.id
                            WHERE username = ? AND motdepasse = ?");
     $stmt->execute([$username, $hashedPassword]);
 

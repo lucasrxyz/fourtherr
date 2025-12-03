@@ -1,5 +1,4 @@
 <?php
-// Requetes/I_Compte/QueriesCompte.php
 
 require_once __DIR__ . '/../AppConnection.php';
 
@@ -96,6 +95,34 @@ function deleteSoldeById($id) {
     global $pdo;
     $stmt = $pdo->prepare("DELETE FROM t_solde WHERE id = :id");
     $stmt->execute([":id" => $id]);
+    return $stmt->rowCount();
+}
+
+function addSoldeArtiste($id, $amount) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        UPDATE t_solde
+        SET solde = solde + :amount
+        WHERE FK_idArtiste = :id
+    ");
+    $stmt->execute([
+        ":amount" => $amount,
+        ":id" => $id
+    ]);
+    return $stmt->rowCount();
+}
+
+function addSoldeCompte($id, $amount) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        UPDATE t_solde
+        SET solde = solde + :amount
+        WHERE Fk_idCompte = :id
+    ");
+    $stmt->execute([
+        ":amount" => $amount,
+        ":id" => $id
+    ]);
     return $stmt->rowCount();
 }
 ?>

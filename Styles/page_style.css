@@ -39,7 +39,6 @@
             padding-left: 6px; /* 6px gauche/droite */
             padding-right: 6px;
             background-clip: padding-box;
-            transition: all 0.2s;
         }
         
         .navbar-btn:hover {

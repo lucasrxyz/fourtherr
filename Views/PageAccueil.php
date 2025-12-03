@@ -23,13 +23,15 @@ if (!isset($_SESSION['user'])) {
         <strong>FOURTHERR</strong>
 
         <div class="navbar-right">
-            <pre style="color:white;">
+            <a style="color:white;margin-right: 14px;">
                 <?php 
                 echo htmlspecialchars($_SESSION['user']['prenom']); 
                 echo "&nbsp;"; 
-                echo htmlspecialchars($_SESSION['user']['nom']); 
+                echo htmlspecialchars($_SESSION['user']['nom']);
+                echo "&nbsp;&nbsp;"; 
+                echo "<span style='color:#fdd2a0ff; font-weight: bold;'>" . ucfirst(htmlspecialchars($_SESSION['type']));
                 ?>
-            </pre>
+            </a>
             <a href="solde.php" class="sidebar-btn navbar-btn">Solde</a>
             <a href="../Controllers/logoutCall.php" class="sidebar-btn navbar-btn">Déconnexion</a>
         </div>
@@ -69,7 +71,7 @@ if (!isset($_SESSION['user'])) {
     <div class="main-content">
         <div class="page-content">
             <?php
-            echo "Bienvenue, " . "<span style='font-weight:bold;'>" . htmlspecialchars($_SESSION['user']['prenom']) . "</span>";
+            echo "Bienvenue, " . "<span style='font-weight:bold;'>" . htmlspecialchars($_SESSION['user']['prenom']) . "&nbsp;" . htmlspecialchars($_SESSION['user']['nom']) . "</span>";
             ?>
         </div>
         
