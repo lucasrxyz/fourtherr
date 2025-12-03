@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '/../Requetes/T_Solde/QueriesSolde.php';
+require_once __DIR__ . '/../Requetes/I_Commandes/QueriesCommande.php';
+
 session_start();
 
 // Protection de la page
@@ -6,6 +9,29 @@ if (!isset($_SESSION['user'])) {
     header("Location: FourtherrLogin.php");
     exit;
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
+
+    switch ($action) {
+        case 'addSoldeToArtiste':
+            $id = $_POST['id'] ?? 0;
+            $amount = $_POST['amount'] ?? 0;
+            $result = addSoldeArtiste($id, $amount) . " | " . htmlspecialchars($amount) . " ajouté(s) à compte pour ID " . htmlspecialchars($id);
+            break;
+
+        case 'addSoldeToCompte':
+            $id = $_POST['id'] ?? 0;
+            $amount = $_POST['amount'] ?? 0;
+            $result = addSoldeCompte($id, $amount) . " | " . htmlspecialchars($amount) . " ajouté(s) à compte pour ID " . htmlspecialchars($id);
+            break;
+
+        case 'getCommandeArtiste':
+            $artisteId = $_POST['artisteId'] ?? null;
+            if ($artisteId) $result = getCommandeByArtisteID($artisteId);
+            break;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +40,8 @@ if (!isset($_SESSION['user'])) {
     <meta charset="UTF-8">
     <title>Accueil - Fourtherr</title>
     <link rel="stylesheet" href="../Styles/page_style.css">
+
+    <script src="../Scripts/HandleDivRechargerSolde.js"></script>
 </head>
 
 <body>
@@ -74,9 +102,9 @@ if (!isset($_SESSION['user'])) {
             echo "Bienvenue, " . "<span style='font-weight:bold;'>" . htmlspecialchars($_SESSION['user']['prenom']) . "&nbsp;" . htmlspecialchars($_SESSION['user']['nom']) . "</span>";
             ?>
         </div>
-        
-        <div class="divider-horizontal">
-        </div>
+
+        <div class="divider-horizontal"></div>
+        <!-- <div class="divider-horizontal" style="margin-top: 0px !important;margin-bottom: 0px !important;"></div> -->
 
         <div class="solde-content">
             <?php
@@ -95,12 +123,70 @@ if (!isset($_SESSION['user'])) {
                 echo '<button type="button" style="margin-left: 10px;" class="sidebar-btn">Charger</button>';
             }
             else {
-                 echo '<button type="button" style="margin-left: 10px;" class="sidebar-btn">Recharger</button>';
+                 echo '<button type="button" id="btnRecharger" style="margin-left: 10px;" class="sidebar-btn">Recharger</button>';
             }
             ?>
-
         </div>
-    </div>
+        
+        <!-- Afficher cette div que si le bouton recharger est cliqué -->
+        <div class="recharger-content" id="rechargerDiv" style="display:none;">
 
+            <span style="color:#ff8800; margin-left: 10px;">Recharger le <b>solde</b></span>
+
+            <div class="divider-horizontal" style="background: #ff8800 !important;margin-top: 5px !important;margin-bottom: 0px !important;"></div>
+
+            <form method="post" style="margin-top: 10px;">
+                <input type="hidden" name="action" 
+                       value="<?php echo ($_SESSION['type'] === 'artiste') ? 'addSoldeToArtiste' : 'addSoldeToCompte'; ?>">
+
+                <input type="hidden" name="id" value="<?php echo htmlspecialchars($_SESSION['user']['id']); ?>">
+
+                <label><span style="font-size: 14px; margin-left:10px;">Montant :</span></label>
+                <input type="text" name="amount" required><br>
+
+                <button type="submit" style="margin-left: 10px;margin-top:5px; margin-bottom:5px;" class="sidebar-btn">Recharger</button>
+            </form>
+        </div>
+
+        <div class="solde-content-no-bg" style="display: flex; gap: 10px; margin-top: 20px;">
+            <div style="flex: 1; border-radius: 8px; background-color: #efefef; padding: 10px;">
+                <span style='margin-left:10px;font-size:14px;'>Vos commandes</span><br>
+                <?php
+                if ($_SESSION['type'] === 'artiste') {
+                    $artisteId = $_SESSION['user']['id'];
+                    $commandes = getCommandeByArtisteID($artisteId);
+                
+                    if (!empty($commandes)) {
+                        foreach ($commandes as $commande) {
+                            echo '<div style="
+                                border: 1px solid #ccc;
+                                border-radius: 8px;
+                                padding: 10px;
+                                margin-bottom: 10px;
+                                background-color: #f9f9f9;
+                            ">';
+                            
+                            echo "<span style='font-weight:bold;color:#ff8800;'>Commande n°" . htmlspecialchars($commande['idNumCommande']) . "</span><br>";
+                            echo "<span>Date : " . htmlspecialchars($commande['dateCommande']) . "</span><br>";
+                            echo "<span>Description : " . htmlspecialchars($commande['description']) . "</span><br>";
+                            echo "<span>Prix : " . htmlspecialchars($commande['prix']) . " €</span><br>";
+                            echo "<span>Statut : " . htmlspecialchars($commande['statut']) . "</span><br>";
+                            echo "<span>Client : " . htmlspecialchars($commande['nomCompte']) . " (" . htmlspecialchars($commande['usernameCompte']) . ")</span>";
+                            
+                            echo '</div>';
+                        }
+                    } else {
+                        echo '<div style="font-style: italic; color: #777;">Aucune commande trouvée.</div>';
+                    }
+                }
+                ?>
+
+            </div>
+            <div style="flex: 1; border-radius: 8px; background-color: #efefef; padding: 10px;">
+                <span>Div 2</span>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>

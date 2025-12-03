@@ -131,6 +131,14 @@
             border-radius: 8px;
         }
 
+        .solde-content-no-bg {
+            padding: 5px;
+            font-size: 18px;
+            margin:25px;
+            border-radius: 8px;
+            background-color: rgba(0,0,0,0);
+        }
+
         .divider-horizontal {
             height: 1px;              /* épaisseur demandée */
             background: #000000;
@@ -139,4 +147,20 @@
 
             width: calc(100% - 30px); /* retire 15px de chaque côté */
             margin: 20px 15px;        /* espace autour + marge latérale */
+        }
+
+        .recharger-content {
+            padding: 5px;
+            font-size: 18px;
+            border: .15em dotted #ff8800;
+            margin:25px;
+            background-color: rgba(255, 136, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        .content-child {
+            flex: 1; 
+            border: 2px solid #000000; 
+            padding: 10px; 
+            text-align: center;
         }

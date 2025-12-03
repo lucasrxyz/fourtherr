@@ -45,10 +45,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         break;
 
-
         case 'deleteSolde':
             $id = $_POST['id'] ?? 0;
             $result = deleteSoldeById($id) . " row(s) deleted";
+            break;
+        
+        case 'addSoldeToArtiste':
+            $id = $_POST['id'] ?? 0;
+            $amount = $_POST['amount'] ?? 0;
+            $result = addSoldeArtiste($id, $amount) . " | " . htmlspecialchars($amount) . " ajouté(s) à artiste pour ID " . htmlspecialchars($id);
+            break;
+
+        case 'addSoldeToCompte':
+            $id = $_POST['id'] ?? 0;
+            $amount = $_POST['amount'] ?? 0;
+            $result = addSoldeCompte($id, $amount) . " | " . htmlspecialchars($amount) . " ajouté(s) à compte pour ID " . htmlspecialchars($id);
+            break;
+
+        case 'deleteAmountFromSoldeArtiste':
+            $id = $_POST['id'] ?? 0;
+            $amount = $_POST['amount'] ?? 0;
+            $result = delSoldeAmountArtiste($id, $amount) . " | " . htmlspecialchars($amount) . " supprimés(s) à compte pour ID " . htmlspecialchars($id);
+            break;
+
+        case 'deleteAmountFromSoldeCompte':
+            $id = $_POST['id'] ?? 0;
+            $amount = $_POST['amount'] ?? 0;
+            $result = delSoldeAmountCompte($id, $amount) . " | " . htmlspecialchars($amount) . " ajouté(s) à compte pour ID " . htmlspecialchars($id);
             break;
     }
 }
@@ -119,6 +142,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="hidden" name="action" value="getIdArtiste">
         <button type="submit">IDs artiste</button>
     </form>
+
+    <!-- Ajouter solde a artiste-->
+    <b> Ajouter solde artiste </b>
+    <form method="post">
+        <input type="hidden" name="action" value="addSoldeToArtiste">
+        <label>ID :</label>
+        <input type="number" name="id" required><br>
+        <label>Montant :</label>
+        <input type="number" step="0.01" name="amount" required><br>
+        <button type="submit">Éxécuter</button>
+    </form>
+
+    <!-- Ajouter solde a compte-->
+    <b> Ajouter solde compte </b>
+    <form method="post">
+        <input type="hidden" name="action" value="addSoldeToCompte">
+        <label>ID :</label>
+        <input type="number" name="id" required><br>
+        <label>Montant :</label>
+        <input type="number" step="0.01" name="amount" required><br>
+        <button type="submit">Éxécuter</button>
+    </form>
+
     <!-- Résultat -->
     <?php if ($result !== null): ?>
         <h3><span style="color:#0000FE"><b>JSON</b></span> response body</h3>

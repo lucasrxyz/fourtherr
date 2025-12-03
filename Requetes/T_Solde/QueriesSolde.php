@@ -125,4 +125,32 @@ function addSoldeCompte($id, $amount) {
     ]);
     return $stmt->rowCount();
 }
+
+function delSoldeAmountArtiste($id, $amount) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        UPDATE t_solde
+        SET solde = solde - :amount
+        WHERE FK_idArtiste = :id
+    ");
+    $stmt->execute([
+        ":amount" => $amount,
+        ":id" => $id
+    ]);
+    return $stmt->rowCount();
+}
+
+function delSoldeAmountCompte($id, $amount) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        UPDATE t_solde
+        SET solde = solde - :amount
+        WHERE FK_idCompte = :id
+    ");
+    $stmt->execute([
+        ":amount" => $amount,
+        ":id" => $id
+    ]);
+    return $stmt->rowCount();
+}
 ?>
