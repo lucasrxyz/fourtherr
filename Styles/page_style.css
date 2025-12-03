@@ -108,7 +108,7 @@
         }
 
         .page-content {
-            padding: 25px;
+            padding: 10px 0 0 15px; 
         }
 
         .card {
@@ -122,4 +122,22 @@
         .card h3 {
             margin-top: 0;
             color: #ff8800;
+        }
+
+        .solde-content {
+            padding: 5px;
+            font-size: 18px;
+            background-color: #efefef;
+            margin:25px;
+            border-radius: 8px;
+        }
+
+        .divider-horizontal {
+            height: 1px;              /* épaisseur demandée */
+            background: #000000;
+            opacity: 10%;
+            border-radius: 2px;
+
+            width: calc(100% - 30px); /* retire 15px de chaque côté */
+            margin: 20px 15px;        /* espace autour + marge latérale */
         }

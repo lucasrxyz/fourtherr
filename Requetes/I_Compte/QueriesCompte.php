@@ -71,8 +71,9 @@ function connexionUtilisateur($username, $motdepasse) {
     // Re-hash du mot de passe entré
     $hashedPassword = hash('sha256', $motdepasse);
 
-    $stmt = $pdo->prepare("SELECT id, nom, prenom, username 
-                           FROM i_compte 
+    $stmt = $pdo->prepare("SELECT a.id, a.nom, a.prenom, a.username, b.solde 
+                           FROM i_compte a
+                           LEFT JOIN t_solde b ON a.id = b.FK_idCompte
                            WHERE username = ? AND motdepasse = ?");
     $stmt->execute([$username, $hashedPassword]);
 

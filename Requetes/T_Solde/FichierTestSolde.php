@@ -9,6 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     switch ($action) {
 
+        // pour recup les id compte et id artiste
+        case 'getIdArtiste':
+            $result = getIdArtiste();
+            break;
+        case 'getIdCompte':
+            $result = getIdCompte();
+            break;
+
         case 'getAllSolde':
             $result = getAllSolde();
             break;
@@ -83,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">Éxécuter</button>
     </form>
 
+    
     <form method="post">
         <input type="hidden" name="action" value="insertSolde"><br>
         <label>Solde :</label>
@@ -100,6 +109,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>ID Solde :</label>
         <input type="number" name="id" required>
         <button type="submit">Éxécuter</button>
+    </form>
+
+    <form method="post" style="border: 2px solid #0000FE;">
+        <input type="hidden" name="action" value="getIdCompte">
+        <button type="submit">IDs compte</button>
+    </form>
+    <form method="post" style="border: 2px solid #0000FE;">
+        <input type="hidden" name="action" value="getIdArtiste">
+        <button type="submit">IDs artiste</button>
     </form>
     <!-- Résultat -->
     <?php if ($result !== null): ?>

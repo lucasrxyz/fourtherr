@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
            <button type="button" style="padding: 3px;" onclick="window.location.href='../Requetes/I_Artiste/FichierTestCompte.php'">I_Artiste</button>
            <button type="button" style="padding: 3px;" onclick="window.location.href='../Requetes/I_Commandes/FichierTestCommande.php'">I_Commandes</button>
            <button type="button" style="padding: 3px;" onclick="window.location.href='../Requetes/I_Compte/FichierTestCompte.php'">I_Compte</button>
+           <button type="button" style="padding: 3px;" onclick="window.location.href='../Requetes/T_Solde/FichierTestSolde.php'">T_Solde</button>
         </div>
 
         <?php if($message): ?>

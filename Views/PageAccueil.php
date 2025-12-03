@@ -38,7 +38,7 @@ if (!isset($_SESSION['user'])) {
     <!-- SIDEBAR -->
     <div class="sidebar">
 
-        <!-- Groupe 1 : Mes Revenus -->
+        <!-- Mes Revenus -->
         <div class="sidebar-group">
             <div class="sidebar-group-title">Mes Revenus</div>
 
@@ -51,7 +51,7 @@ if (!isset($_SESSION['user'])) {
             </div>
         </div>
 
-        <!-- Groupe 2 : Artistes -->
+        <!-- Artistes -->
         <div class="sidebar-group">
             <div class="sidebar-group-title">Artistes</div>
 
@@ -68,6 +68,35 @@ if (!isset($_SESSION['user'])) {
     <!-- MAIN CONTENT -->
     <div class="main-content">
         <div class="page-content">
+            <?php
+            echo "Bienvenue, " . "<span style='font-weight:bold;'>" . htmlspecialchars($_SESSION['user']['prenom']) . "</span>";
+            ?>
+        </div>
+        
+        <div class="divider-horizontal">
+        </div>
+
+        <div class="solde-content">
+            <?php
+            echo "<span style='margin-left:10px;font-size:16px;'>Solde actuel : </span><br>";
+
+            if (isset($_SESSION['user']['solde'])) {
+                echo "<span style='margin-left: 10px;font-size:50px;'><b>" . htmlspecialchars($_SESSION['user']['solde']) . " € </b></span><br>";
+            } else {
+                echo "<span style='margin-left: 10px;font-size:50px;'><b>0 € </b></span><br>";
+            }
+            ?>
+            <?php 
+            $soldeIsset = isset($_SESSION['user']['solde']);
+
+            if (!$soldeIsset) {
+                echo '<button type="button" style="margin-left: 10px;" class="sidebar-btn">Charger</button>';
+            }
+            else {
+                 echo '<button type="button" style="margin-left: 10px;" class="sidebar-btn">Recharger</button>';
+            }
+            ?>
+
         </div>
     </div>
 

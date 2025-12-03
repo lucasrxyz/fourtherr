@@ -3,6 +3,22 @@
 
 require_once __DIR__ . '/../AppConnection.php';
 
+// Recup les id artiste pour savoir lesquels mettre lors d'un ajout de solde
+function getIdArtiste() {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT id,username FROM i_artiste");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+// Recup les id compte pour savoir lesquels mettre lors d'un ajout de solde
+function getIdCompte() {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT id,username FROM i_compte");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
 function getAllSolde() {
     global $pdo;
     $stmt = $pdo->query("
