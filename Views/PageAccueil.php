@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="solde-content-no-bg" style="display: flex; gap: 10px; margin-top: 20px;">
             <div style="flex: 1; border-radius: 8px; background-color: #efefef; padding: 10px;">
-                <span style='margin-left:10px;font-size:14px;'>Vos commandes</span><br>
+                <span style='margin-left:10px;font-size:14px;'><b>Commandes</b> à traiter</span><br>
                 <?php
                 if ($_SESSION['type'] === 'artiste') {
                     $artisteId = $_SESSION['user']['id'];
@@ -166,8 +166,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 background-color: #f9f9f9;
                             ">';
                             
-                            echo "<span style='font-weight:bold;color:#ff8800;'>Commande n°" . htmlspecialchars($commande['idNumCommande']) . "</span><br>";
-                            echo "<span>Date : " . htmlspecialchars($commande['dateCommande']) . "</span><br>";
+                            echo "<span style='font-weight:bold;color:#ff8800;'>Commande n°" . htmlspecialchars($commande['idNumCommande']) . "</span>&nbsp;";
+                            echo "<span style='color:rgba(0,0,0,0.5);font-size:15px;'>" . htmlspecialchars($commande['dateCommande']) . "</span><br>";
                             echo "<span>Description : " . htmlspecialchars($commande['description']) . "</span><br>";
                             echo "<span>Prix : " . htmlspecialchars($commande['prix']) . " €</span><br>";
                             echo "<span>Statut : " . htmlspecialchars($commande['statut']) . "</span><br>";
