@@ -158,6 +158,15 @@
             border-radius: 8px;
         }
 
+        .charger-content {
+            padding: 5px;
+            font-size: 18px;
+            border: .15em dotted #ff8800;
+            margin:25px;
+            background-color: rgba(255, 136, 0, 0.05);
+            border-radius: 8px;
+        }
+
         .content-child {
             flex: 1; 
             border: 2px solid #000000; 
