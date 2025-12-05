@@ -182,3 +182,16 @@ function getCountCommandeByIDArtiste($idArtiste) {
     $stmt->execute([":idArtiste" => $idArtiste]);
     return $stmt->rowCount();
 }
+
+function getCountCommandeByIDCompte($idCompte) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        SELECT 
+            c.idNumCommande
+        FROM I_commandes c
+        LEFT JOIN i_compte a ON c.FK_idCompte = a.id
+        LEFT JOIN i_artiste b ON c.FK_idArtiste = b.id
+        WHERE c.FK_idCompte = :idCompte");
+    $stmt->execute([":idCompte" => $idCompte]);
+    return $stmt->rowCount();
+}

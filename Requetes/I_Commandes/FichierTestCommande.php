@@ -51,9 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $result = ["message" => "Commandes supprimées", "count" => $deleted];
             }
             break;
+
         case 'getCommandeCountByArtisteID':
             $idArtiste = $_POST['idArtiste'] ?? null;
             if ($idArtiste) $result = getCountCommandeByIDArtiste($idArtiste);
+            break;
+        case 'getCommandeCountByCompteID':
+            $idCompte = $_POST['idCompte'] ?? null;
+            if ($idCompte) $result = getCountCommandeByIDCompte($idCompte);
             break;
     }
 }
@@ -135,6 +140,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <b>getCommandeCountByArtisteID</b><br>
     <label>ID de l'artiste :</label>
     <input type="number" name="idArtiste" required>
+    <button type="submit">Éxécuter</button>
+</form>
+<form method="post">
+    <input type="hidden" name="action" value="getCommandeCountByCompteID">
+    <b>getCommandeCountByCommandeID</b><br>
+    <label>ID de l'artiste :</label>
+    <input type="number" name="idCompte" required>
     <button type="submit">Éxécuter</button>
 </form>
 <!-- Résultat -->
