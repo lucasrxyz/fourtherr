@@ -12,6 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'getAll':
             $result = getAllPortofolio();
             break;
+        case 'getAllPortofolioArtiste':
+            $idArtiste = $_POST['idArtiste'] ?? 0;
+            $result = getPortofolioArtiste($idArtiste);
+            break;
     }
 }
 ?>
@@ -35,8 +39,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!-- Tous les formulaires -->
 
 <form method="post">
+    <b>getAllPortofolio()</b><br>
     <input type="hidden" name="action" value="getAll">
-    <button type="submit">Afficher toutes les commandes</button>
+    <button type="submit">Éxécuter</button>
+</form>
+
+<form method="post">
+    <b>getPortofolioArtiste($idArtiste)</b><br>
+    <input type="hidden" name="action" value="getAllPortofolioArtiste">
+    <label>ID Artiste :</label>
+    <input type="number" name="idArtiste" required><br>
+    <button type="submit">Éxécuter</button> 
 </form>
 
 <!-- Résultat -->
