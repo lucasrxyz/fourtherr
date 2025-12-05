@@ -12,14 +12,14 @@ function getAllPortofolio() {
         p.description,
         p.image,
         p.FK_idArtiste,
-
+        p.DateCreation,
         a.motdepasse,
         a.nom,
         a.prenom,
         a.username
     
     FROM t_portofolio p
-    LEFT JOIN i_artiste a ON p.FK_idArtiste = a.id");
+    LEFT JOIN i_artiste a ON p.FK_idArtiste = a.id;");
     $stmt->execute();
     return $stmt->fetchAll();
 }
@@ -42,16 +42,22 @@ function getPortofolioArtiste($idArtiste) {
     FROM t_portofolio p
     LEFT JOIN i_artiste a ON p.FK_idArtiste = a.id
     
-    WHERE p.FK_idArtiste = :idArtiste");
+    WHERE p.FK_idArtiste = :idArtiste;");
     $stmt->execute([":idArtiste" => $idArtiste]);
     return $stmt->fetchAll();
 }
 
-// function createNewPortofolio($titre, $description, $imageLink, $idArtiste) {
-//     global $pdo;
-//     $stmt = $pdo->prepare("
-//         INSERT INTO t_portofolio () VALUES
-//         ()
-//     ")
-// }
+function createNewPortofolio($titre, $description, $imageLink, $idArtiste) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        INSERT INTO t_portofolio (titre, description, dateCreation, image, FK_idArtiste) VALUES
+        (:titre, :description, NOW(), :imageLink, :idArtiste);");
+    $stmt->execute([
+        ":titre" => $titre,
+        ":description" => $description,
+        ":imageLink" => $imageLink,
+        ":idArtiste" => $idArtiste
+    ]);
+    return $pdo->lastInsertId();
+}
 ?>

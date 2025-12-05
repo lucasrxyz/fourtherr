@@ -1,12 +1,11 @@
 <?php
-require_once __DIR__ . '../../../Requetes/T_Solde/QueriesSolde.php';
-require_once __DIR__ . '../../../Requetes/I_Commandes/QueriesCommande.php';
+require_once __DIR__ . '../../../Requetes/T_Portofolio/QueriesPortofolio.php';
 
 session_start();
 
 // Protection de la page
 if (!isset($_SESSION['user'])) {
-    header("Location: FourtherrLogin.php");
+    header("Location: ../FourtherrLogin.php");
     exit;
 }
 
@@ -54,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Accueil - Fourtherr</title>
     <link rel="stylesheet" href="../../Styles/page_style.css">
+    <link rel="stylesheet" href="../../Styles/rootCss.css">
 
     <script src="../../Scripts/HandleNotifCompte.js" defer></script>
     <script src="../../Scripts/HandleNotifSolde.js" defer></script>
@@ -116,6 +116,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="main-content">
         <h2 style="margin-left:16px;">Découvrez les oeuvres de nos artistes!</h2>
 
+        <div class="divider-horizontal"></div>
+        
+        <div class="solde-content-no-bg" style="display: flex; gap: 10px; margin-top: 20px;">
+            <div style="flex: 1; border-radius: 8px; background-color: #efefef; padding: 10px;">
+                <?php
+                $portofolio = getAllPortofolio();
+
+                if (!empty($portofolio)) {
+                    foreach ($portofolio as $portofolios) {
+                        echo '<div style="
+                            border: 1px solid #ff8800;
+                            border-radius: 8px;
+                            padding: 10px;
+                            margin-bottom: 10px;
+                            background-color: #faf8f5;
+                        ">';
+
+                        echo "<span class='fs-18 ma-0 pa-0' style='color: #ff8800'><b>" .htmlspecialchars($portofolios['titre']) . "</b></span>";
+                        $dt = DateTime::createFromFormat("Y-m-d H:i:s", $portofolios['DateCreation']);
+                        $formattedDate = $dt ? $dt->format("M. dS, Y - H\hi") : $portofolios['DateCreation'];
+
+                        echo "<span class='fs-14' style='margin-left:15px;opacity:50%;'>" . htmlspecialchars($formattedDate) . "</span>";
+
+                        echo "<div class='divider-horizontal' style='background: rgba(180, 96, 0, 1) !important;margin-top: 5px !important;margin-bottom: 0px !important;'></div>";
+                        echo "<br>";
+                        echo "<img src='https://www.gameblog.fr/geek/ed/news/arcane-retard-artbook-678203'></img>";
+                        echo "<img src=". htmlspecialchars($portofolios['image']). "></img>";
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<div style="font-style: italic; color: #777;">Aucun portofolio trouvée.</div>';
+                }
+                ?>
+            </div>
+        </div>
     </div>
 </body>
 </html>
