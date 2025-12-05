@@ -153,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if (!empty($row["linkPic"]) && !in_array($row["linkPic"], $portfolios[$id]["images"])) {
                         $portfolios[$id]["images"][] = $row["linkPic"];
                     }
-                    
+
                     // Ajouter le filter uniquement si pas déjà ajouté
                     if (!empty($row["filter"]) && !in_array($row["filter"], $portfolios[$id]["filters"])) {
                         $portfolios[$id]["filters"][] = $row["filter"];
@@ -181,7 +181,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                              . htmlspecialchars($formattedDate) . "</span>";
                     
                         echo "<div class='divider-horizontal' style='background: rgba(180, 96, 0, 1) !important;margin-top: 5px !important;margin-bottom: 0px !important;'></div><br>";
-                    
+                        
+                        echo "&nbsp;<span class='artiste'>" . htmlspecialchars($portofolios['prenom']) . "&nbsp;<b>" . htmlspecialchars($portofolios['nom']) . "</b></span>";
+                        
+                        echo "<div class='divider-horizontal' style='background: rgba(180, 96, 0, 1) !important;margin-top: 5px !important;margin-bottom: 0px !important;'></div><br>";
+
                         // Affichage des images du portfolio
                         if (!empty($portofolios["images"])) {
                         

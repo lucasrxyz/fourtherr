@@ -2,9 +2,14 @@
     padding: 5px;
     border-radius: 24px;
     margin-right: 5px;
-    background-color:rgba(255, 136, 0, .2);
-    color:#ff9900;
+    background-color:rgba(8, 37, 103, .2);
+    color:#082567;
 
     font-size: 14px;
-    border: 1px solid #ff9900;
+    border: 1px solid rgba(8, 37, 103, 1);
+}
+
+.artiste {
+    color:#082567;
+    margin: 20px 10px;
 }
