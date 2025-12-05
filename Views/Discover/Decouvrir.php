@@ -182,9 +182,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                         echo "<div class='divider-horizontal' style='background: rgba(180, 96, 0, 1) !important;margin-top: 5px !important;margin-bottom: 0px !important;'></div><br>";
                         
-                        echo "&nbsp;<span class='artiste'>" . htmlspecialchars($portofolios['prenom']) . "&nbsp;<b>" . htmlspecialchars($portofolios['nom']) . "</b></span>";
-                        
+                        echo "&nbsp;<span class='artiste'>" . htmlspecialchars($portofolios['username']) . "</b>&nbsp;✶</span>&nbsp;";
+
                         echo "<div class='divider-horizontal' style='background: rgba(180, 96, 0, 1) !important;margin-top: 5px !important;margin-bottom: 0px !important;'></div><br>";
+
+                        
 
                         // Affichage des images du portfolio
                         if (!empty($portofolios["images"])) {

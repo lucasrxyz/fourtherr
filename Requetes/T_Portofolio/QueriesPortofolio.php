@@ -31,6 +31,49 @@ function getAllPortofolio() {
     $stmt->execute();
     return $stmt->fetchAll();
 }
+
+function getAllPortofolioByID($idPortofolio) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+    SELECT 
+        p.id,
+        p.titre,
+        p.description,
+        p.image,
+        p.FK_idArtiste,
+        p.DateCreation,
+
+        a.motdepasse,
+        a.nom,
+        a.prenom,
+        a.username,
+
+        pi.linkPic,
+
+        pf.filter
+
+    FROM t_portofolio p
+
+    LEFT JOIN l_portofoliofilters pf ON p.id = pf.fk_idPortofolio
+    LEFT JOIN l_portofolioimages pi ON p.id = pi.fk_idPortofolio
+    LEFT JOIN i_artiste a ON p.FK_idArtiste = a.id
+    WHERE p.id = :idPortofolio;");
+    $stmt->execute([
+        ":idPortofolio" => $idPortofolio
+    ]);
+    return $stmt->fetchAll();
+}
+
+function getAllIDOnlyPortofolio() {
+    global $pdo;
+    $stmt = $pdo->prepare("
+    SELECT 
+        id
+    FROM t_portofolio");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
 function getPortofolioArtiste($idArtiste) {
     global $pdo;
     $stmt = $pdo->prepare("
@@ -74,5 +117,38 @@ function createNewPortofolio($titre, $description, $imageLink, $idArtiste) {
         ":idArtiste" => $idArtiste
     ]);
     return $pdo->lastInsertId();
+}
+
+function setImageToPortofolio($link, $idPortofolio) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        INSERT INTO l_portofolioimages (linkPic, fk_idPortofolio)
+        VALUES (:link, :idPortofolio);");
+    $stmt->execute([
+    ":link" => $link,
+    "idPortofolio" => $idPortofolio
+    ]);
+    return $pdo->lastInsertId();
+}
+
+function setFilterToPortofolio($filter, $idPortofolio) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        INSERT INTO l_portofoliofilters (filter, fk_idPortofolio)
+        VALUES (:filter,:idPortofolio);");
+    $stmt->execute([
+    ":filter" => $filter,
+    "idPortofolio" => $idPortofolio
+    ]);
+    return $pdo->lastInsertId();
+}
+
+function deletePortofolio($idPortofolio) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        DELETE FROM t_portofolio
+        WHERE id = :idPortofolio;
+    ");
+    return $stmt->execute([":idPortofolio" => $idPortofolio]);
 }
 ?>
