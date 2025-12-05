@@ -52,9 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Accueil - Fourtherr</title>
+
     <link rel="stylesheet" href="../../Styles/page_style.css">
     <link rel="stylesheet" href="../../Styles/rootCss.css">
     <link rel="stylesheet" href="../../Styles/Decouvrir/images.css">
+    <link rel="stylesheet" href="../../Styles/Decouvrir/portofolioGlobal.css">
 
     <script src="../../Scripts/HandleNotifCompte.js" defer></script>
     <script src="../../Scripts/HandleNotifSolde.js" defer></script>
@@ -142,13 +144,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             "nom"           => $row["nom"],
                             "prenom"        => $row["prenom"],
                             "username"      => $row["username"],
-                            "images"        => []   // liste des images liées depuis la table l_portofolioimages
+                            "images"        => [],   // liste des images liées depuis la table l_portofolioimages
+                            "filters"       => []   // liste des filters liés depuis la table l_portofoliofilters
                         ];
                     }
                 
-                    // Ajouter l'image si elle existe
-                    if (!empty($row["linkPic"])) {
+                    // Ajouter l'image uniquement si elle n'existe pas déjà
+                    if (!empty($row["linkPic"]) && !in_array($row["linkPic"], $portfolios[$id]["images"])) {
                         $portfolios[$id]["images"][] = $row["linkPic"];
+                    }
+                    
+                    // Ajouter le filter uniquement si pas déjà ajouté
+                    if (!empty($row["filter"]) && !in_array($row["filter"], $portfolios[$id]["filters"])) {
+                        $portfolios[$id]["filters"][] = $row["filter"];
                     }
                 }
 
@@ -192,6 +200,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         } else {
                             echo "<div style='font-style: italic; color: #777;'>Aucune image</div>";
+                        }
+
+                        if (!empty($portofolios["filters"])) {
+
+                            echo "<br>";
+
+                            foreach ($portofolios["filters"] as $filterPortofolio) {
+                                echo "<span class='filter-portofolio'>" . htmlspecialchars($filterPortofolio) . "</span>";
+                            }
                         }
                         echo '</div>';
                     }

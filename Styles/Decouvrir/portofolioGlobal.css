@@ -1,0 +1,10 @@
+.filter-portofolio {
+    padding: 5px;
+    border-radius: 24px;
+    margin-right: 5px;
+    background-color:rgba(255, 136, 0, .2);
+    color:#ff9900;
+
+    font-size: 14px;
+    border: 1px solid #ff9900;
+}

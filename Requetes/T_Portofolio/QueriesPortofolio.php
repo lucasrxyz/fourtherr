@@ -19,9 +19,13 @@ function getAllPortofolio() {
         a.prenom,
         a.username,
 
-        pi.linkPic
+        pi.linkPic,
+
+        pf.filter
 
     FROM t_portofolio p
+
+    LEFT JOIN l_portofoliofilters pf ON p.id = pf.fk_idPortofolio
     LEFT JOIN l_portofolioimages pi ON p.id = pi.fk_idPortofolio
     LEFT JOIN i_artiste a ON p.FK_idArtiste = a.id;");
     $stmt->execute();
@@ -43,8 +47,13 @@ function getPortofolioArtiste($idArtiste) {
         a.prenom,
         a.username,
 
-        pi.linkPic
+        pi.linkPic,
+
+        pf.filter
+
     FROM t_portofolio p
+
+    LEFT JOIN l_portofoliofilters pf ON p.id = pf.fk_idPortofolio
     LEFT JOIN l_portofolioimages pi ON p.id = pi.fk_idPortofolio
     LEFT JOIN i_artiste a ON p.FK_idArtiste = a.id
     
