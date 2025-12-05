@@ -55,6 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Accueil - Fourtherr</title>
     <link rel="stylesheet" href="../Styles/page_style.css">
 
+    <script src="../Scripts/HandleNotifCompte.js" defer></script>
+    <script src="../Scripts/HandleNotifSolde.js" defer></script>
     <!-- "defer" pour que le script s'éxécute après le chargement de l'html -->
     <script src="../Scripts/HandleDivRechargerSolde.js" defer></script>
 </head>
@@ -120,6 +122,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="divider-horizontal"></div>
         <!-- <div class="divider-horizontal" style="margin-top: 0px !important;margin-bottom: 0px !important;"></div> -->
+        
+        <div id="messageSolde" class="notif-success">
+            Solde bien rechargé ! <span><a href="../Controllers/logoutCall.php">Déconnectez-vous</a></span> puis reconnectez-vous pour voir les changements.
+        </div>
+        <div id="messageSoldeCharger" class="notif-success">
+            Vous avez bien inséré votre premier montant sur votre compte. <span><a href="../Controllers/logoutCall.php">Déconnectez-vous</a></span> puis reconnectez-vous pour voir les changements.
+        </div>
 
         <div class="solde-content">
             <?php
@@ -160,6 +169,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" style="margin-left: 10px;margin-top:5px; margin-bottom:5px;" class="sidebar-btn">Recharger</button>
             </form>
         </div>
+
+        
 
         <!-- div Charger -->
         <div class="charger-content" id="chargerDiv" style="display:none;">
