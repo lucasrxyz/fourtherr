@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Accueil - Fourtherr</title>
     <link rel="stylesheet" href="../../Styles/page_style.css">
     <link rel="stylesheet" href="../../Styles/rootCss.css">
+    <link rel="stylesheet" href="../../Styles/Decouvrir/images.css">
 
     <script src="../../Scripts/HandleNotifCompte.js" defer></script>
     <script src="../../Scripts/HandleNotifSolde.js" defer></script>
@@ -121,10 +122,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="solde-content-no-bg" style="display: flex; gap: 10px; margin-top: 20px;">
             <div style="flex: 1; border-radius: 8px; background-color: #efefef; padding: 10px;">
                 <?php
-                $portofolio = getAllPortofolio();
+                $raw = getAllPortofolio();
 
-                if (!empty($portofolio)) {
-                    foreach ($portofolio as $portofolios) {
+                // Regroupement des portfolios
+                $portfolios = [];
+
+                foreach ($raw as $row) {
+                    $id = $row['id'];
+                
+                    // Si le portfolio n'existe pas encore, on le crée
+                    if (!isset($portfolios[$id])) {
+                        $portfolios[$id] = [
+                            "id"            => $row["id"],
+                            "titre"         => $row["titre"],
+                            "description"   => $row["description"],
+                            "image"         => $row["image"],
+                            "DateCreation"  => $row["DateCreation"] ?? null,
+                            "FK_idArtiste"  => $row["FK_idArtiste"],
+                            "nom"           => $row["nom"],
+                            "prenom"        => $row["prenom"],
+                            "username"      => $row["username"],
+                            "images"        => []   // liste des images liées depuis la table l_portofolioimages
+                        ];
+                    }
+                
+                    // Ajouter l'image si elle existe
+                    if (!empty($row["linkPic"])) {
+                        $portfolios[$id]["images"][] = $row["linkPic"];
+                    }
+                }
+
+                if (!empty($portfolios)) {
+                    foreach ($portfolios as $portofolios) {
+                    
                         echo '<div style="
                             border: 1px solid #ff8800;
                             border-radius: 8px;
@@ -132,30 +162,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             margin-bottom: 10px;
                             background-color: #faf8f5;
                         ">';
-
-                        // Titre
-                        echo "<span class='fs-18 ma-0 pa-0' style='color: #ff8800'><b>" . htmlspecialchars($portofolios['titre']) . "</b></span>";
-
-                        // Date formatée
+                    
+                        echo "<span class='fs-18 ma-0 pa-0' style='color: #ff8800'><b>" 
+                             . htmlspecialchars($portofolios['titre']) . "</b></span>";
+                    
                         $dt = DateTime::createFromFormat("Y-m-d H:i:s", $portofolios['DateCreation']);
                         $formattedDate = $dt ? $dt->format("M. dS, Y - H\hi") : $portofolios['DateCreation'];
-                        echo "<span class='fs-14' style='margin-left:15px;opacity:50%;'>" . htmlspecialchars($formattedDate) . "</span>";
-
-                        echo "<div class='divider-horizontal' style='background: rgba(180, 96, 0, 1) !important;margin-top: 5px !important;margin-bottom: 0px !important;'></div><br>";
-
-                        // Image
-                        $imgUrl = $portofolios['image']; // pas besoin de stripslashes
-                        if (preg_match('/\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i', $imgUrl)) {
-                            echo "<img style='width:20%;border-radius:8px;' src='" . htmlspecialchars($imgUrl, ENT_QUOTES) . "' alt='Portfolio image'>";
-                        } else {
-                            echo "<div style='font-style: italic; color: #777;'>Image non disponible</div>";
-                        }
                     
+                        echo "<span class='fs-14' style='margin-left:15px;opacity:50%;'>" 
+                             . htmlspecialchars($formattedDate) . "</span>";
+                    
+                        echo "<div class='divider-horizontal' style='background: rgba(180, 96, 0, 1) !important;margin-top: 5px !important;margin-bottom: 0px !important;'></div><br>";
+                    
+                        // Affichage des images du portfolio
+                        if (!empty($portofolios["images"])) {
+                        
+                            echo "<div class='portfolio-images'>";
+                        
+                            foreach ($portofolios["images"] as $imgUrl) {
+                                if (preg_match('/\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i', $imgUrl)) {
+                                
+                                    echo "<div class='img-169-container'>
+                                            <img src='" . htmlspecialchars($imgUrl) . "' alt='image portfolio'>
+                                          </div>";
+                                }
+                            }
+                        
+                            echo "</div>";
+                        
+                        } else {
+                            echo "<div style='font-style: italic; color: #777;'>Aucune image</div>";
+                        }
                         echo '</div>';
                     }
-
+                
                 } else {
-                    echo '<div style="font-style: italic; color: #777;">Aucun portofolio trouvée.</div>';
+                    echo '<div style="font-style: italic; color: #777;">Aucun portofolio trouvé.</div>';
                 }
                 ?>
             </div>

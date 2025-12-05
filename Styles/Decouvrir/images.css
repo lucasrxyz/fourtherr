@@ -1,0 +1,19 @@
+.portfolio-images {
+    display: flex;
+    flex-wrap: wrap; /* Passe à la ligne si trop d’images */
+    gap: 10px;       /* espace entre images */
+    align-items: center;
+}
+
+.img-169-container {
+    aspect-ratio: 16/9;
+    width: 200px;         /* ou 20%, comme tu veux */
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.img-169-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
