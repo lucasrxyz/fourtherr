@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- SIDEBAR -->
     <div class="sidebar">
-
+        <?php if (isset($_SESSION['type']) && $_SESSION['type'] === 'artiste'): ?>
         <!-- Mes Revenus -->
         <div class="sidebar-group">
             <div class="sidebar-group-title">Mes Revenus</div>
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="#" class="sidebar-btn">Mes Clients</a>
             </div>
         </div>
-
+        <?php endif; ?>
         <!-- Artistes -->
         <div class="sidebar-group">
             <div class="sidebar-group-title">Artistes</div>
