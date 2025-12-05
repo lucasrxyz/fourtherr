@@ -133,18 +133,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             background-color: #faf8f5;
                         ">';
 
-                        echo "<span class='fs-18 ma-0 pa-0' style='color: #ff8800'><b>" .htmlspecialchars($portofolios['titre']) . "</b></span>";
+                        // Titre
+                        echo "<span class='fs-18 ma-0 pa-0' style='color: #ff8800'><b>" . htmlspecialchars($portofolios['titre']) . "</b></span>";
+
+                        // Date formatée
                         $dt = DateTime::createFromFormat("Y-m-d H:i:s", $portofolios['DateCreation']);
                         $formattedDate = $dt ? $dt->format("M. dS, Y - H\hi") : $portofolios['DateCreation'];
-
                         echo "<span class='fs-14' style='margin-left:15px;opacity:50%;'>" . htmlspecialchars($formattedDate) . "</span>";
 
-                        echo "<div class='divider-horizontal' style='background: rgba(180, 96, 0, 1) !important;margin-top: 5px !important;margin-bottom: 0px !important;'></div>";
-                        echo "<br>";
-                        echo "<img src='https://www.gameblog.fr/geek/ed/news/arcane-retard-artbook-678203'></img>";
-                        echo "<img src=". htmlspecialchars($portofolios['image']). "></img>";
+                        echo "<div class='divider-horizontal' style='background: rgba(180, 96, 0, 1) !important;margin-top: 5px !important;margin-bottom: 0px !important;'></div><br>";
+
+                        // Image
+                        $imgUrl = $portofolios['image']; // pas besoin de stripslashes
+                        if (preg_match('/\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i', $imgUrl)) {
+                            echo "<img style='width:20%;border-radius:8px;' src='" . htmlspecialchars($imgUrl, ENT_QUOTES) . "' alt='Portfolio image'>";
+                        } else {
+                            echo "<div style='font-style: italic; color: #777;'>Image non disponible</div>";
+                        }
+                    
                         echo '</div>';
                     }
+
                 } else {
                     echo '<div style="font-style: italic; color: #777;">Aucun portofolio trouvée.</div>';
                 }
