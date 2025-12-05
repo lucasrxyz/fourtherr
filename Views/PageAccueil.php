@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <?php endif; ?>
             <div class="sidebar-item">
-                <a href="#" class="sidebar-btn">Découvrir</a>
+                <a href="./Discover/Decouvrir.php" class="sidebar-btn">Découvrir</a>
             </div>
         </div>
     </div>
