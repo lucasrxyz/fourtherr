@@ -165,3 +165,20 @@ function deleteCommandeById($idNumCommande) {
     $stmt->execute([":idNumCommande" => $idNumCommande]);
     return $stmt->rowCount(); // retourne 1 si supprimé, 0 sinon
 }
+
+/**
+ * @param idArtiste
+ * Retourne le nombre de commande qu'a un artiste
+ */
+function getCountCommandeByIDArtiste($idArtiste) {
+    global $pdo;
+    $stmt = $pdo->prepare("
+        SELECT 
+            c.idNumCommande
+        FROM I_commandes c
+        LEFT JOIN i_compte a ON c.FK_idCompte = a.id
+        LEFT JOIN i_artiste b ON c.FK_idArtiste = b.id
+        WHERE c.FK_idArtiste = :idArtiste");
+    $stmt->execute([":idArtiste" => $idArtiste]);
+    return $stmt->rowCount();
+}

@@ -51,6 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $result = ["message" => "Commandes supprimées", "count" => $deleted];
             }
             break;
+        case 'getCommandeCountByArtisteID':
+            $idArtiste = $_POST['idArtiste'] ?? null;
+            if ($idArtiste) $result = getCountCommandeByIDArtiste($idArtiste);
+            break;
     }
 }
 ?>
@@ -126,6 +130,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button type="submit">Éxécuter</button>
 </form>
 
+<form method="post">
+    <input type="hidden" name="action" value="getCommandeCountByArtisteID">
+    <b>getCommandeCountByArtisteID</b><br>
+    <label>ID de l'artiste :</label>
+    <input type="number" name="idArtiste" required>
+    <button type="submit">Éxécuter</button>
+</form>
 <!-- Résultat -->
 <?php if ($result !== null): ?>
     <h3><span style="color:#0000FE"><b>JSON</b></span> response body</h3>
